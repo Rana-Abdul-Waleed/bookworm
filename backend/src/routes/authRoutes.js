@@ -8,6 +8,7 @@ const generateToken = (userId) => {
   return jwt.sign({ userId }, process.env.JWT_SECRET, { expiresIn: "15d" });
 };
 
+// signup/register api
 router.post("/register", async (req, res) => {
   try {
     const { username, email, password } = req.body;
@@ -68,6 +69,7 @@ router.post("/register", async (req, res) => {
   }
 });
 
+// signin/login api
 router.post("/login", async (req, res) => {
   try {
     const { email, password } = req.body;
