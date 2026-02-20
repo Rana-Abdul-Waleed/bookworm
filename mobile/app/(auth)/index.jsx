@@ -1,35 +1,26 @@
 import {
   View,
-  Text,
   Image,
+  Text,
   TextInput,
   TouchableOpacity,
   ActivityIndicator,
   KeyboardAvoidingView,
   Platform,
-  Alert,
 } from "react-native";
 import { Link } from "expo-router";
 import styles from "../../assets/styles/login.styles.js";
 import { useState } from "react";
-import { Ionicons } from "@expo/vector-icons";
 import COLORS from "../../constants/colors.js";
-
-import { useAuthStore } from "../../store/authStore.js";
+import { Ionicons } from "@expo/vector-icons";
 
 export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
-  const { isLoading, login, isCheckingAuth } = useAuthStore();
+  const [isLoading, setIsLoading] = useState(false);
 
-  const handleLogin = async () => {
-    const result = await login(email, password);
-
-    if (!result.success) Alert.alert("Error", result.error);
-  };
-
-  if (isCheckingAuth) return null;
+  const handleLogin = () => {};
 
   return (
     <KeyboardAvoidingView
@@ -37,7 +28,7 @@ export default function Login() {
       behavior={Platform.OS === "ios" ? "padding" : "height"}
     >
       <View style={styles.container}>
-        {/* ILLUSTRATION */}
+        {/* Illustration */}
         <View style={styles.topIllustration}>
           <Image
             source={require("../../assets/images/i.png")}
@@ -46,9 +37,10 @@ export default function Login() {
           />
         </View>
 
+        {/* Login card */}
         <View style={styles.card}>
           <View style={styles.formContainer}>
-            {/* EMAIL */}
+            {/* Email */}
             <View style={styles.inputGroup}>
               <Text style={styles.label}>Email</Text>
               <View style={styles.inputContainer}>
@@ -70,18 +62,18 @@ export default function Login() {
               </View>
             </View>
 
-            {/* PASSWORD */}
+            {/* Password */}
             <View style={styles.inputGroup}>
               <Text style={styles.label}>Password</Text>
               <View style={styles.inputContainer}>
-                {/* LEFT ICON */}
+                {/* Left icon */}
                 <Ionicons
                   name="lock-closed-outline"
                   size={20}
                   color={COLORS.primary}
                   style={styles.inputIcon}
                 />
-                {/* INPUT */}
+                {/* Input */}
                 <TextInput
                   style={styles.input}
                   placeholder="Enter your password"
@@ -90,7 +82,7 @@ export default function Login() {
                   onChangeText={setPassword}
                   secureTextEntry={!showPassword}
                 />
-
+                {/* Right icon */}
                 <TouchableOpacity
                   onPress={() => setShowPassword(!showPassword)}
                   style={styles.eyeIcon}
@@ -104,6 +96,7 @@ export default function Login() {
               </View>
             </View>
 
+            {/* Login button */}
             <TouchableOpacity
               style={styles.button}
               onPress={handleLogin}
@@ -116,7 +109,7 @@ export default function Login() {
               )}
             </TouchableOpacity>
 
-            {/* FOOTER */}
+            {/* Footer */}
             <View style={styles.footer}>
               <Text style={styles.footerText}>Don't have an account?</Text>
               <Link href="/signup" asChild>
