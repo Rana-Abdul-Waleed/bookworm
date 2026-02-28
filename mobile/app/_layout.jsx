@@ -18,7 +18,6 @@ export default function RootLayout() {
   // handle navigation based on the auth state
   useEffect(() => {
     if (isCheckingAuth) return;
-    if (!segments.length) return;
     const inAuthScreen = segments[0] === "(auth)";
     const isSignedIn = !!user && !!token;
     // const isSignedIn = Boolean(user) && Boolean(token); // This is the same as above statement
